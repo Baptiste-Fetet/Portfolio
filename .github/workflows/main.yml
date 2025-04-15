@@ -96,3 +96,41 @@ jobs:
         with:
           name: vite-build
           path: ./dist
+
+  upload_to_gcs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: vite-build
+
+      - name: Install Google Cloud SDK
+        run: |
+          echo "Installing Google Cloud SDK..."
+          curl -sSL https://sdk.cloud.google.com | bash
+          source $HOME/google-cloud-sdk/path.bash.inc
+          gcloud --version
+
+      - name: Authenticate with GCP
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: |
+          echo "${GOOGLE_CREDENTIALS}" > ${HOME}/gcloud-key.json
+          gcloud auth activate-service-account --key-file=${HOME}/gcloud-key.json
+
+      - name: Select bucket
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "BUCKET_NAME=${{ vars.BUCKET_MAIN }}" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+            echo "BUCKET_NAME=${{ vars.BUCKET_DEV }}" >> $GITHUB_ENV
+          fi
+
+      - name: Upload artifact to GCS
+        run: |
+          gsutil cp -r ./dist/* gs://${BUCKET_NAME}/
