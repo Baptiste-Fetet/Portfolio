@@ -25,3 +25,4 @@ dist-ssr
 
 .vite
 terraform/.terraform.lock.hcl
+terraform/.terraform
