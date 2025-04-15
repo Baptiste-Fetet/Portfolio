@@ -17,7 +17,7 @@ jobs:
     env:
       GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
       TF_VAR_PROJECT_ID: ${{ secrets.PROJECT_ID }}
-      TF_VAR_REGION: ${{ vars.TF_VAR_REGION }}
+      TF_VAR_REGION: ${{ vars.REGION }}
       BUCKET_MAIN: ${{ vars.BUCKET_MAIN }}
       BUCKET_DEV: ${{ vars.BUCKET_DEV }}
 
