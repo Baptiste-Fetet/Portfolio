@@ -1,0 +1,95 @@
+{
+  "resume": {
+    "title": "Titre a modifier",
+    "content": "Contenu a modifier"
+  },
+  "competences": {
+    "title": "Compétences",
+    "content": "Contenu a modifier",
+    "hardSkills": {
+      "title": "Connaissances techniques",
+      "content": [
+        {
+          "title": "DevOps",
+          "icon": "devops"
+        },
+        {
+          "title": "DevSecOps",
+          "icon": "devsecops"
+        },
+        {
+          "title": "Architecture cloud",
+          "icon": "archi_cloud"
+        }
+      ]
+    },
+    "softSkills": {
+      "title": "Compétences humaines",
+      "content": []
+    },
+    "techSkills": {
+      "title": "Compétences techniques",
+      "content": [
+        {
+          "title": "IaC",
+          "content": [
+            {
+              "title": "Terraform",
+              "icon": "terraform"
+            },
+            {
+              "title": "Cloudinit",
+              "icon": "cloudinit"
+            },
+            {
+              "title": "Ansible",
+              "icon": "ansible"
+            },
+            {
+              "title": "Helm charts",
+              "icon": "helm"
+            }
+          ]
+        },
+        {
+          "title": "Cloud",
+          "content": [
+            {
+              "title": "AWS",
+              "icon": "aws"
+            },
+            {
+              "title": "GCP",
+              "icon": "gcp"
+            },
+            {
+              "title": "Azure",
+              "icon": "azure"
+            }
+          ]
+        },
+        {
+          "title": "CI/CD",
+          "content": [
+            {
+              "title": "Gitlab CI",
+              "icon": "gitlab"
+            },
+            {
+              "title": "Github Actions",
+              "icon": "github"
+            },
+            {
+              "title": "Jenkins",
+              "icon": "jenkins"
+            },
+            {
+              "title": "ArgoCD",
+              "icon": "argocd"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
