@@ -121,7 +121,7 @@ jobs:
         env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: |
-          echo "${GOOGLE_CREDENTIALS}" | base64 --decode > ${HOME}/gcloud-key.json
+          echo "${GOOGLE_CREDENTIALS}" > ${HOME}/gcloud-key.json
           gcloud auth activate-service-account --key-file=${HOME}/gcloud-key.json
 
       - name: Select bucket
