@@ -40,10 +40,10 @@ jobs:
         run: |
           if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             terraform workspace select prod || terraform workspace new prod
-            echo "TF_BUCKET_NAME=${{ vars.BUCKET_MAIN }}" >> $GITHUB_ENV
+            echo "TF_VAR_BUCKET_NAME=${{ vars.BUCKET_MAIN }}" >> $GITHUB_ENV
           elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
             terraform workspace select dev || terraform workspace new dev
-            echo "TF_BUCKET_NAME=${{ vars.BUCKET_DEV }}" >> $GITHUB_ENV
+            echo "TF_VAR_BUCKET_NAME=${{ vars.BUCKET_DEV }}" >> $GITHUB_ENV
           fi
 
       - name: Terraform Plan
