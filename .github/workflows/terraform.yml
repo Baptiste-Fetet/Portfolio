@@ -1,0 +1,50 @@
+# .github/workflows/terraform.yml
+name: Terraform Job
+
+on:
+  workflow_call:
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+
+    env:
+      GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      TF_VAR_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+      TF_VAR_REGION: ${{ vars.TF_VAR_REGION }}
+      BUCKET_MAIN: ${{ vars.BUCKET_MAIN }}
+      BUCKET_DEV: ${{ vars.BUCKET_DEV }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.8.3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Select workspace
+        run: |
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            terraform workspace select prod || terraform workspace new prod
+            echo "TF_BUCKET_NAME=${{ vars.BUCKET_MAIN }}" >> $GITHUB_ENV
+          elif [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+            terraform workspace select dev || terraform workspace new dev
+            echo "TF_BUCKET_NAME=${{ vars.BUCKET_DEV }}" >> $GITHUB_ENV
+          fi
+
+      - name: Terraform Plan
+        run: terraform plan -input=false
+
+      - name: Terraform Apply
+        run: terraform apply -input=false tfplan
