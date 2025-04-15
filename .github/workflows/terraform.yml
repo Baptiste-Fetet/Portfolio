@@ -2,7 +2,10 @@
 name: Terraform Job
 
 on:
-  workflow_call:
+  push:
+    branches:
+      - dev
+      - main
 
 jobs:
   terraform:
