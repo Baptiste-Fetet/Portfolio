@@ -1,0 +1,29 @@
+# .github/workflows/lint.yml
+name: Lint Job
+
+on:
+  workflow_run:
+    workflows: ["Terraform Job"] # Ce workflow dépend du workflow Terraform
+    types:
+      - completed
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: |
+          npm install
+
+      - name: Run Lint
+        run: |
+          npm run lint
