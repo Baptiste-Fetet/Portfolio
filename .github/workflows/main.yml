@@ -134,4 +134,5 @@ jobs:
 
       - name: Upload artifact to GCS
         run: |
+          ls
           gsutil cp -r ./dist/* gs://${BUCKET_NAME}/
